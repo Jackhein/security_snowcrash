@@ -1,0 +1,37 @@
+f2av5il02puano7naaf6adaaf
+
+<- ls -l
+-> level02.pcap
+
+pcap file are readable with wireshark.
+These type of file are created with Wireshark as result of network analysis.
+
+We'll open this file with it:
+
+On local terminal :
+<- scp -P 4242 level02@192.168.147.3:level02.pcap level02.pcap
+
+We got localy level02.pcap.
+
+Now we read it witch wireshark (if not already installed install it (I'm using windows, on mac it might differ for wireshark use)).
+
+When reading the level02.pcap with woreshark, we car find "Password:" in packet 43.
+Here we took the following data and follow the tcp stream (on windows : right clic -> follow -> tcp stream).
+
+Here we see :
+-> ..wwwbugs login: l.le.ev.ve.el.lX.X
+-> ..
+-> Password: ft_wandr...NDRel.L0L
+
+The password "ft_wandr...NDRel.L0L" seems a bit odd with the three dot.
+We'll check the hex value
+-> 66 74 5f 77 61 6e 64 72 7f 7f 7f 4e 44 52 65 6c 7f 4c 30 4c 0d
+
+The value of 7f in ascii is DEL. So let's try withouth the dots and the character wrote previously:
+ft_wandr...NDRel.L0L -> ft_waNDReL0L
+
+<- su flag02
+<- ft_waNDReL0L
+-> Don't forget to launch getflag !
+<- getflag
+-> Check flag.Here is your token : kooda2puivaav1idi4f57q8iq

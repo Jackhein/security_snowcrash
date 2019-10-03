@@ -1,0 +1,10 @@
+qi0maab88jeaj46qoumi7maus
+
+We can see a perl script that print a html page and that use CGI.
+
+That script will do an echo of the first value of 'x'.
+
+We got a hint that it's used on localhost at the port 4747 so we'll connect with curl:
+
+<- curl localhost:4747?x=\`getflag\`
+-> Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap

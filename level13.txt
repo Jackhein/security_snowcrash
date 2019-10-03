@@ -1,0 +1,24 @@
+g1qKMiRpXf53AWhDaU7FEkczr
+
+<- ./level13
+-> UID 2013 started us but we we expect 4242
+
+He want us to be 4242, we will be 4242:
+
+<- gdb level13
+<- disas main
+
+Some getuid but the first one is followed with a cmp, we'll change the value of the compared register:
+
+<- br *main+14
+<- r
+<- i r
+-> eax            0x7dd    2013
+
+We'll change eax value for 4242:
+
+<- set $eax=4242
+<- c
+-> your token is 2A31L79asukciNyi8uppkEuSx
+
+

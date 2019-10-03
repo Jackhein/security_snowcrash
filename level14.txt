@@ -1,0 +1,26 @@
+2A31L79asukciNyi8uppkEuSx
+
+<- gdb /bin/getflag
+<- disas main
+
+-> 0x08048989 <+67>:    call   0x8048540 <ptrace@plt>
+
+ptrace check the use of gdb, but the result might be changed so no problem.
+
+<- br *main+72
+<- br *main+444
+<- r
+
+<- set $eax=0
+<- c
+
+<- set $eax=3014
+<- c
+-> Check flag.Here is your token : 7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ
+<- q
+
+<- su flag14
+<- 7QiHafiNa3HVozsaXkawuYrTstxbpABHD8CPnHJ
+-> Congratulation.
+
+Yeh !

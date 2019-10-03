@@ -1,0 +1,24 @@
+We'll check every files where we got the permission :
+
+<- find / -user flag00 2>/tmp/popipo
+-> /usr/sbin/john
+-> /rofs/usr/sbin/john
+
+<- cat /usr/sbin/john
+-> cdiiddwpgswtgt
+
+Yeh ! Let's try it out.
+
+<- su flag00
+-> Authentication failure
+
+Mmh, it might be encrypted. If we check a bit the password, it seems badly encrypted, we'll use a simple decrypt system, caesar code:
+We'll using https://www.dcode.fr/chiffre-cesar
+
+cdiiddwpgswtgt with a rotation of 15 give us nottoohardhere.
+
+<- su flag00
+<- Password:nottoohardhere
+-> Don't forget to launch getflag !
+<- getflag
+-> Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias

